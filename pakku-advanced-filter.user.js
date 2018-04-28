@@ -2,19 +2,19 @@
 // @name         pakku advanced filter
 // @namespace    http://s.xmcp.ml/pakkujs/
 // @version      0.1
-// @description  µ¯Ä»ÆÁ±ÎPro+ £¨ÒÀÀµÓÚ pakku¡Ý8.7£©
+// @description  å¼¹å¹•å±è”½Pro+ ï¼ˆä¾èµ–äºŽ pakkuâ‰¥8.7ï¼‰
 // @author       xmcp
 // @match        *://*.bilibili.com/*
 // @grant        none
 // ==/UserScript==
 
-const NEED_UID=true; // ÊÇ·ñÐèÒªÊ¹ÓÃ cracked_uid ÊôÐÔ£¨Âý£©
-const NEED_SENDER_INFO=true; // ÊÇ·ñÐèÒªÊ¹ÓÃ sender_info ÊôÐÔ£¨¸üÂý£©
+const NEED_UID=true; // æ˜¯å¦éœ€è¦ä½¿ç”¨ cracked_uid å±žæ€§ï¼ˆæ…¢ï¼‰
+const NEED_SENDER_INFO=true; // æ˜¯å¦éœ€è¦ä½¿ç”¨ sender_info å±žæ€§ï¼ˆæ›´æ…¢ï¼‰
 
-function should_display(d) { // ÆÁ±Î¹æÔòÐ´ÔÚÕâ¸öº¯ÊýÀï
+function should_display(d) { // å±è”½è§„åˆ™å†™åœ¨è¿™ä¸ªå‡½æ•°é‡Œ
     //console.log(d);
 
-    // Ê¾Àý£º½öÏÔÊ¾ LV3 ÒÔÉÏÓÃ»§µÄµ¯Ä»
+    // ç¤ºä¾‹ï¼šä»…æ˜¾ç¤º LV3 ä»¥ä¸Šç”¨æˆ·çš„å¼¹å¹•
     return d.sender_info && d.sender_info.level_info.current_level>=3;
 
     /*
@@ -36,7 +36,7 @@ d = {
             "time": 0,
             "orig_str": "]]][[[",
             "mode": "1",
-            "reason": "¡Ü2"
+            "reason": "â‰¤2"
         }
     ],
 	"cracked_uid": 10119345,
@@ -47,7 +47,7 @@ d = {
 		"avatar": "http://i2.hdslb.com/bfs/face/902415752868028e925cf3ee508a7d6c6d4d57e3.jpg",
 		"rank": "10000",
 		"DisplayRank": "10000",
-		"sex": "ÄÐ",
+		"sex": "ç”·",
 		"sign": "pcmx",
 		"level_info": {
 			"next_exp": 28800,
@@ -63,11 +63,11 @@ d = {
 		},
 		"nameplate": {
 			"nid": 60,
-			"name": "?·¹È¦ÃÈÐÂ",
+			"name": "?é¥­åœˆèŒæ–°",
 			"image": "http://i1.hdslb.com/bfs/face/51ca16136e570938450bca360f28761ceb609f33.png",
 			"image_small": "http://i2.hdslb.com/bfs/face/9abfa4769357f85937782c2dbc40fafda4f57217.png",
-			"level": "ÆÕÍ¨Ñ«ÕÂ",
-			"condition": "µ±Ç°³ÖÓÐ·ÛË¿Ñ«ÕÂ×î¸ßµÈ¼¶>=5¼¶"
+			"level": "æ™®é€šå‹‹ç« ",
+			"condition": "å½“å‰æŒæœ‰ç²‰ä¸å‹‹ç« æœ€é«˜ç­‰çº§>=5çº§"
 		},
 		"official_verify": {
 			"type": -1,
@@ -94,11 +94,11 @@ d = {
             const ver=e.data.pakku_version||'0';
             if(NEED_SENDER_INFO) {
                 if(comp_ver(ver,'8.7'))
-                    return alert('pakku °æ±¾¹ýµÍ');
+                    return alert('pakku ç‰ˆæœ¬è¿‡ä½Ž');
                 postMessage({type: 'pakku_get_danmaku_with_info'},'*');
             } else if(NEED_UID) {
                 if(comp_ver(ver,'8.7'))
-                    return alert('pakku °æ±¾¹ýµÍ');
+                    return alert('pakku ç‰ˆæœ¬è¿‡ä½Ž');
                 postMessage({type: 'pakku_get_danmaku_with_uid'},'*');
             } else {
                 postMessage({type: 'pakku_get_danmaku'},'*');
