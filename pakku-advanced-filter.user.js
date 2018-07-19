@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         pakku advanced filter
 // @namespace    http://s.xmcp.ml/pakkujs/
-// @version      0.2
+// @version      0.2.1
 // @description  弹幕屏蔽Pro+ （依赖于 pakku≥8.7）
 // @author       xmcp
 // @match        *://*.bilibili.com/*
@@ -103,8 +103,11 @@ function do_filter(D) {
             alert('隐藏加载进度条需要 pakku 8.7.1 或更高版本');
     }
 
+    let COMPLETED=false;
+
     addEventListener('message',function(e) {
         if(e.data.type==='pakku_event_danmaku_loaded') {
+            if(COMPLETED) return;
             check_ver(e.data.pakku_version||'0');
             if(NEED_SENDER_INFO) {
                 postMessage({type: 'pakku_get_danmaku_with_info', silence: SILENCE},'*');
@@ -121,6 +124,7 @@ function do_filter(D) {
                 xml+=d.xml_src;
             });
             xml+='</i>';
+            COMPLETED=true;
             window.postMessage({type: 'pakku_set_xml_bounce', xml: xml},'*');
         }
     });
