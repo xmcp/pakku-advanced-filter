@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         pakku advanced filter
 // @namespace    http://s.xmcp.ml/pakkujs/
-// @version      0.2.1
-// @description  弹幕屏蔽Pro+ （依赖于 pakku≥8.7）
+// @version      0.2.2
+// @description  弹幕屏蔽Pro+
 // @author       xmcp
 // @match        *://*.bilibili.com/*
 // @grant        none
@@ -14,8 +14,8 @@ const NEED_UID=true; // 是否需要使用 cracked_uid 属性（慢）
 const NEED_SENDER_INFO=true; // 是否需要使用 sender_info 属性（更慢）
 const SILENCE=false; // 加载用户信息时不显示进度条
 
+// 屏蔽规则写在这个函数里
 function do_filter(D) {
-    // 屏蔽规则写在这个函数里
 
     return D.filter((d) => {
         // const [time, mode, size, color, sendtime, pool, uid_hash, danmaku_id] = d.peers[0].attr;
@@ -97,17 +97,21 @@ function do_filter(D) {
         return ver1 < ver2;
     }
     function check_ver(ver) {
+        /*
         if((NEED_SENDER_INFO || NEED_UID) && comp_ver(ver,'8.7'))
             alert('按发送者屏蔽弹幕需要 pakku 8.7 或更高版本');
         if(SILENCE && comp_ver(ver,'8.7.1'))
             alert('隐藏加载进度条需要 pakku 8.7.1 或更高版本');
+        */
+        if(comp_ver(ver,'8.10.1'))
+            alert('pakku advanced filter 用户脚本依赖于 pakku 8.10.1 或更高版本');
     }
 
-    let COMPLETED=false;
+    let COMPLETED_TIME=-10000;
 
     addEventListener('message',function(e) {
         if(e.data.type==='pakku_event_danmaku_loaded') {
-            if(COMPLETED) return;
+            if((+new Date())-COMPLETED_TIME<3000) return;
             check_ver(e.data.pakku_version||'0');
             if(NEED_SENDER_INFO) {
                 postMessage({type: 'pakku_get_danmaku_with_info', silence: SILENCE},'*');
@@ -124,7 +128,7 @@ function do_filter(D) {
                 xml+=d.xml_src;
             });
             xml+='</i>';
-            COMPLETED=true;
+            COMPLETED_TIME=(+new Date());
             window.postMessage({type: 'pakku_set_xml_bounce', xml: xml},'*');
         }
     });
