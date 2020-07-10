@@ -1,17 +1,8 @@
-你想要的：
+# B站弹幕屏蔽Pro+
 
-# 按
-# 用
-# 户
-# 等
-# 级
-# 屏
-# 蔽
-# B
-# 站
-# 弹
-# 幕
+[greasyfork](https://greasyfork.org/zh-CN/scripts/42635-pakku-advanced-filter)
 
-（依赖于 [pakku ≥ v8.7](https://github.com/xmcp/pakku.js)）
+依赖于 [pakku ≥ v10.0](https://github.com/xmcp/pakku.js)
 
 *License: WTFPL*
+
